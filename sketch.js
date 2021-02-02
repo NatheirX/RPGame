@@ -3,13 +3,22 @@ let width = window.innerWidth - 10;
 let height = window.innerHeight - 25;
 let squares;
 let img;
+let ships = [];
+let ship;
 
 function preload() {
   img = loadImage("assets/sprite sheet.png");
 }
 function setup() {
   createCanvas(width, height);
-  player = new Player(width / 2, height / 2);
+  player = new Player(1);
+  enemy = new Player(2);
+  ship_types = [[2, 1], [3, 1], [4, 1], [5, 1], [4, 2]];
+  ship_types.forEach((type) => {
+    player.ships.push(new Ship(0, 0, type[0], type[1]));
+    enemy.ships.push(new Ship(600, 0, type[0], type[1]));
+  });
+
   squares = [];
   drawgrid(0, 0);
   drawgrid(600, 0);
@@ -21,34 +30,39 @@ function draw() {
   for (let i = 0; i < squares.length; i++) {
     squares[i].show();
   }
+  for (let i = 0; i < player.ships.length; i++) {
+    player.ships[i].show();
+  }
+  for (let i = 0; i < enemy.ships.length; i++) {
+    enemy.ships[i].show();
+  }
 }
 
-function Player(x, y) {
-  this.x = x;
-  this.y = y;
+function Player(num) {
+  this.num = num;
   this.ships = [];
 }
 
-function ship(x, y, length, width) {
+function Ship(x, y, length, width) {
   this.length = length;
   this.width = width;
   this.x = x;
   this.y = y;
+  this.owner = null;
   this.show = function () {
     if (width == 1) {
       switch (length) {
         case 2:
-          image(img, 0, 0, 50, 100, 0, 0, 50, 100);
+          image(img, x, y, 50, 100, 0, 0, 50, 100);
         case 3:
-          image(img, 0, 0, 50, 150, 100, 0, 50, 150);
-
+          image(img, x, y, 50, 150, 100, 0, 50, 150);
         case 4:
-          image(img, 0, 0, 50, 200, 150, 0, 50, 200);
+          image(img, x, y, 50, 200, 150, 0, 50, 200);
         case 5:
-          image(img, 0, 0, 50, 250, 200, 0, 50, 250);
+          image(img, x, y, 50, 250, 200, 0, 50, 250);
       }
     } else {
-      image(img, 0, 0, 336, 245, 200, 0);
+      image(img, x, y, 336, 245, 250, 0);
     }
   };
 }
