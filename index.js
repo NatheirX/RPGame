@@ -2,12 +2,13 @@ let player;
 let width = window.innerWidth - 10;
 let height = window.innerHeight - 25;
 let squares;
-let img, crator;
+let ships_vert, ships_horz, crator;
 let ships = [];
 let ship;
 
 function preload() {
-  img = loadImage("assets/sprite sheet.png");
+  ships_vert = loadImage("assets/sprite sheet.png");
+  ships_horz = loadImage("assets/sprite sheet2.png");
   crator = loadImage("assets/crator.png");
 }
 function setup() {
@@ -62,19 +63,37 @@ function Ship(x, y, length, width) {
     tint(255, 255);
     if (width == 1) {
       switch (length) {
-        case 2:
+        case 2: //(2, 1)
           // translate(width / 2, height / 2);
-          image(img, x, y, 50, 100, 0, 0, 50, 100);
-        case 3:
-          image(img, x, y, 50, 150, 100, 0, 50, 150);
-        case 4:
-          image(img, x, y, 50, 200, 150, 0, 50, 200);
-        case 5:
-          image(img, x, y, 50, 250, 200, 0, 50, 250);
+          image(ships_vert, x, y, 50, 100, 0, 0, 50, 100);
+        case 3: //(3, 1)
+          image(ships_vert, x, y, 50, 150, 100, 0, 50, 150);
+        case 4: //(4, 1)
+          image(ships_vert, x, y, 50, 200, 150, 0, 50, 200);
+        case 5: //(5, 1)
+          image(ships_vert, x, y, 50, 250, 200, 0, 50, 250);
       }
-    } else {
-      image(img, x, y, 336, 245, 250, 0);
+    } else if (width==2){
+        switch(length){
+          case 1: //(1, 2)
+            image(ships_horz, x, y);
+          case 5:  //(5, 2)
+            image(ships_vert, x, y, 336, 245, 250, 0);
+        }
+    } else if (width==3){  //(1, 3)
+        image(ships_horz, x, y, 336, 245, 250, 0);
+    } else if (width==4){  //(1, 4)
+        image(ships_horz, x, y, 336, 245, 250, 0);
+    } else { //width == 5
+        switch(length){
+          case 1: //(1, 5)
+            image(ships_horz, x, y, 336, 245, 250, 0);
+          case 2: //(2, 5)
+            image(ships_horz, x, y, 336, 245, 250, 0);
+        }  
+
     }
+
   };
 }
 
