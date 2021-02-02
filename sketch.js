@@ -5,7 +5,7 @@ let squares;
 let img;
 
 function preload() {
-  img = loadImage("assets/battleship.png");
+  img = loadImage("assets/sprite sheet.png");
 }
 function setup() {
   createCanvas(width, height);
@@ -21,7 +21,6 @@ function draw() {
   for (let i = 0; i < squares.length; i++) {
     squares[i].show();
   }
-  image(img, 0, 0, 350, 200);
 }
 
 function Player(x, y) {
@@ -35,7 +34,23 @@ function ship(x, y, length, width) {
   this.width = width;
   this.x = x;
   this.y = y;
-  this.show = function () {};
+  this.show = function () {
+    if (width == 1) {
+      switch (length) {
+        case 2:
+          image(img, 0, 0, 50, 100, 0, 0, 50, 100);
+        case 3:
+          image(img, 0, 0, 50, 150, 100, 0, 50, 150);
+
+        case 4:
+          image(img, 0, 0, 50, 200, 150, 0, 50, 200);
+        case 5:
+          image(img, 0, 0, 50, 250, 200, 0, 50, 250);
+      }
+    } else {
+      image(img, 0, 0, 336, 245, 200, 0);
+    }
+  };
 }
 
 function drawgrid(x, y) {
