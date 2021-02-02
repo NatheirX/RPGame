@@ -2,19 +2,26 @@ let player;
 let width = window.innerWidth - 10;
 let height = window.innerHeight - 25;
 let squares;
+let img;
+
+function preload() {
+  img = loadImage("assets/battleship.png");
+}
 function setup() {
   createCanvas(width, height);
   player = new Player(width / 2, height / 2);
   squares = [];
-  drawgrid();
+  drawgrid(0, 0);
+  drawgrid(600, 0);
 }
 
 function draw() {
-  background(5);
+  background(255);
   ellipseMode(CENTER);
   for (let i = 0; i < squares.length; i++) {
     squares[i].show();
   }
+  image(img, 0, 0, 350, 200);
 }
 
 function Player(x, y) {
@@ -31,9 +38,9 @@ function ship(x, y, length, width) {
   this.show = function () {};
 }
 
-function drawgrid() {
-  let width = 0;
-  let height = 0;
+function drawgrid(x, y) {
+  let width = x;
+  let height = y;
   for (let i = 0; i < 10; i++) {
     for (let j = 0; j < 10; j++) {
       let square = new Square(width, height);
@@ -41,7 +48,7 @@ function drawgrid() {
       width += 50;
     }
     height += 50;
-    width = 0;
+    width = x;
   }
 }
 
