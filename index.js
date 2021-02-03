@@ -45,6 +45,17 @@ function draw() {
   for (let i = 0; i < enemy.ships.length; i++) {
     enemy.ships[i].show();
   }
+
+  // first ship horizontal
+  // image(ships_horz, 0, 0, 100, 50, 150, 0, 100, 50);
+  // second ship horizontal
+  // image(ships_horz, 0, 0, 150, 50, 100, 100, 150, 50);
+  // third ship horizontal
+  // image(ships_horz, 0, 0, 200, 50, 50, 150, 200, 50);
+  // forth ship horizontal
+  // image(ships_horz, 0, 0, 250, 50, 0, 200, 250, 50);
+  // last ship horizontal
+  // image(ships_horz, 0, 0, 200, 100, 50, 250, 200, 100);
 }
 
 function Player(num) {
@@ -73,27 +84,26 @@ function Ship(x, y, length, width) {
         case 5: //(5, 1)
           image(ships_vert, x, y, 50, 250, 200, 0, 50, 250);
       }
-    } else if (width==2){
-        switch(length){
-          case 1: //(1, 2)
-            image(ships_horz, x, y);
-          case 5:  //(5, 2)
-            image(ships_vert, x, y, 336, 245, 250, 0);
-        }
-    } else if (width==3){  //(1, 3)
-        image(ships_horz, x, y, 336, 245, 250, 0);
-    } else if (width==4){  //(1, 4)
-        image(ships_horz, x, y, 336, 245, 250, 0);
-    } else { //width == 5
-        switch(length){
-          case 1: //(1, 5)
-            image(ships_horz, x, y, 336, 245, 250, 0);
-          case 2: //(2, 5)
-            image(ships_horz, x, y, 336, 245, 250, 0);
-        }  
-
+    } else if (width == 2) {
+      switch (length) {
+        case 5: //(5, 2)
+          image(ships_vert, x, y, 336, 245, 250, 0);
+      }
+      //     //     }
+      //     // } else if (width==3){  //(1, 3)
+      //     //     image(ships_horz, x, y, 336, 245, 250, 0);
+      //     // } else if (width==4){  //(1, 4)
+      //     //     image(ships_horz, x, y, 336, 245, 250, 0);
+      //     // } else { //width == 5
+      //     //     switch(length){
+      //     //       case 1: //(1, 5)
+      //     //         image(ships_horz, x, y, 336, 245, 250, 0);
+      //     //       case 2: //(2, 5)
+      //     //         image(ships_horz, x, y, 336, 245, 250, 0);
+      //     //     }
+      //   }
+      // }
     }
-
   };
 }
 
