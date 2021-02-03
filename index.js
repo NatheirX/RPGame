@@ -68,41 +68,40 @@ function Ship(x, y, length, width) {
   this.width = width;
   this.x = x;
   this.y = y;
+  this.rotate = false;
   this.owner = null;
   this.show = function () {
-    // rotate(PI / 2.0);
     tint(255, 255);
-    if (width == 1) {
-      switch (length) {
-        case 2: //(2, 1)
-          // translate(width / 2, height / 2);
-          image(ships_vert, x, y, 50, 100, 0, 0, 50, 100);
-        case 3: //(3, 1)
-          image(ships_vert, x, y, 50, 150, 100, 0, 50, 150);
-        case 4: //(4, 1)
-          image(ships_vert, x, y, 50, 200, 150, 0, 50, 200);
-        case 5: //(5, 1)
-          image(ships_vert, x, y, 50, 250, 200, 0, 50, 250);
-      }
-    } else if (width == 2) {
-      switch (length) {
-        case 5: //(5, 2)
-          image(ships_vert, x, y, 336, 245, 250, 0);
-      }
-      //     //     }
-      //     // } else if (width==3){  //(1, 3)
-      //     //     image(ships_horz, x, y, 336, 245, 250, 0);
-      //     // } else if (width==4){  //(1, 4)
-      //     //     image(ships_horz, x, y, 336, 245, 250, 0);
-      //     // } else { //width == 5
-      //     //     switch(length){
-      //     //       case 1: //(1, 5)
-      //     //         image(ships_horz, x, y, 336, 245, 250, 0);
-      //     //       case 2: //(2, 5)
-      //     //         image(ships_horz, x, y, 336, 245, 250, 0);
-      //     //     }
-      //   }
-      // }
+    if (width == 1 && length == 2 && !this.rotate) {
+      image(ships_vert, x, y, 50, 100, 0, 0, 50, 100);
+    }
+    if (width == 1 && length == 3 && !this.rotate) {
+      image(ships_vert, x, y, 50, 150, 100, 0, 50, 150);
+    }
+    if (width == 1 && length == 4 && !this.rotate) {
+      image(ships_vert, x, y, 50, 200, 150, 0, 50, 200);
+    }
+    if (width == 1 && length == 5 && !this.rotate) {
+      image(ships_vert, x, y, 50, 250, 200, 0, 50, 250);
+    }
+    if (width == 2 && length == 4 && !this.rotate) {
+      image(ships_vert, x, y, 336, 245, 250, 0);
+    }
+    //
+    if (width == 1 && length == 2 && this.rotate) {
+      image(ships_horz, x, y, 100, 50, 150, 0, 100, 50);
+    }
+    if (width == 1 && length == 3 && this.rotate) {
+      image(ships_horz, x, y, 150, 50, 100, 100, 150, 50);
+    }
+    if (width == 1 && length == 4 && this.rotate) {
+      image(ships_horz, x, y, 200, 50, 50, 150, 200, 50);
+    }
+    if (width == 1 && length == 5 && this.rotate) {
+      image(ships_horz, x, y, 250, 50, 0, 200, 250, 50);
+    }
+    if (width == 2 && length == 4 && this.rotate) {
+      image(ships_horz, x, y, 200, 100, 50, 250, 200, 100);
     }
   };
 }
