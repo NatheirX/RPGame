@@ -27,8 +27,18 @@ function setup() {
   ];
 
   ship_types.forEach((type) => {
-    player.ships.push(new Ship(0, 0, type[0], type[1]));
-    enemy.ships.push(new Ship(10 * SQUARESIZE + 100, 0, type[0], type[1]));
+    player.ships.push(new Ship(0, 525, type[0], type[1]));
+    enemy.ships.push(new Ship(10 * SQUARESIZE + 100, 525, type[0], type[1]));
+  });
+
+  player.ships.forEach((ship, index) => {
+    ship.x = index * 100;
+    ship.owner = player;
+  });
+
+  enemy.ships.forEach((ship, index) => {
+    ship.x = index * 100 + 600;
+    ship.owner = enemy;
   });
 
   squares = [];
@@ -61,6 +71,7 @@ function Player(num) {
 function Ship(x, y, length, width) {
   this.length = length;
   this.width = width;
+  this.isDragged = false;
   this.x = x;
   this.y = y;
   this.rotate = false;
@@ -158,4 +169,18 @@ function mousePressed() {
       squares[i].bombed = true;
     }
   }
+}
+
+function mouseDragged() {
+  player.ships.forEach((ship) => {
+    if (
+      ship.x < mouseX &&
+      mouseX < ship.x + ship.length * SQUARESIZE &&
+      ship.y < mouseY &&
+      mouseY < ship.y + ship.length * SQUARESIZE
+    ) {
+      ship.x = mouseX;
+      ship.y = mouseY;
+    }
+  });
 }
