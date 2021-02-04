@@ -2,7 +2,7 @@ let player;
 let width = window.innerWidth - 10;
 let height = window.innerHeight - 25;
 let squares;
-let ships_vert, ships_horz, crator, plane;
+let ships_vert, ships_horz, crator, plane, hit;
 let ships = [];
 let ship;
 const SQUARESIZE = 50;
@@ -12,6 +12,7 @@ function preload() {
   ships_horz = loadImage("assets/sprite sheet2.png");
   crator = loadImage("assets/crator.png");
   plane = loadImage("assets/battleship.png");
+  hit = loadImage("assets/hit.png");
 }
 function setup() {
   createCanvas(width, height);
@@ -33,6 +34,7 @@ function setup() {
   squares = [];
   drawgrid(0, 0);
   drawgrid(10 * SQUARESIZE + 100, 0);
+  // jet = new Jet(500, 500);
 }
 
 function draw() {
@@ -41,12 +43,14 @@ function draw() {
   for (let i = 0; i < squares.length; i++) {
     squares[i].show();
   }
-  // for (let i = 0; i < player.ships.length; i++) {
-  //   player.ships[i].show();
-  // }
-  // for (let i = 0; i < enemy.ships.length; i++) {
-  //   enemy.ships[i].show();
-  // }
+  for (let i = 0; i < player.ships.length; i++) {
+    player.ships[i].show();
+  }
+  for (let i = 0; i < enemy.ships.length; i++) {
+    enemy.ships[i].show();
+  }
+  // jet.show();
+  // jet.move();
 }
 
 function Player(num) {
@@ -115,14 +119,19 @@ function Square(x, y) {
   this.x = x;
   this.y = y;
   this.bombed = false;
+  this.hasShip = false;
   this.show = function () {
     square(x, y, SQUARESIZE);
     stroke(0);
     fill("#1DA237");
     strokeWeight(4);
-    if (this.bombed) {
+    if (this.bombed && !this.hasShip) {
       tint(255, 150);
       image(crator, this.x, this.y, SQUARESIZE, SQUARESIZE);
+    }
+    if (this.hasShip && this.bombed) {
+      tint(255, 200);
+      image(hit, this.x, this.y, SQUARESIZE, SQUARESIZE);
     }
   };
 }
@@ -131,6 +140,22 @@ function Jet(x, y) {
   this.x = x;
   this.y = y;
   this.show = function () {
-    image(plane, 0, 0, 55, 55, 65, 150, 50, 50);
+    image(plane, this.x, this.y, 55, 55, 65, 150, 50, 50);
   };
+  this.move = function () {
+    this.y -= 5;
+  };
+}
+
+function mousePressed() {
+  for (let i = 0; i < squares.length; i++) {
+    if (
+      squares[i].x < mouseX &&
+      mouseX < squares[i].x + SQUARESIZE &&
+      squares[i].y < mouseY &&
+      mouseY < squares[i].y + SQUARESIZE
+    ) {
+      squares[i].bombed = true;
+    }
+  }
 }
