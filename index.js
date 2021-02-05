@@ -130,7 +130,10 @@ function Jet(x, y) {
   };
 }
 
-function mousePressed() {
+function mousePressed(gameState) {
+  if (gameState ==0){
+    
+  }
   squares.forEach((square) => {
     if (
       square.x < mouseX &&
@@ -147,41 +150,41 @@ function mousePressed() {
 
 
 function mousePressed() {
-  player.ships.forEach((ship) => {
-    if (
-      ship.x < mouseX &&
-      mouseX < ship.x + ship.length * SQUARESIZE &&
-      ship.y < mouseY &&
-      mouseY < ship.y + ship.length * SQUARESIZE
-    ) {
-      ship.x = mouseX;
-      ship.y = mouseY;
-    }
-  });
-  console.log("x " + player.ships[0].x);
-  console.log("mouseX " + mouseX)
-  console.log("y " + player.ships[0].y);
-  console.log("mouseY " + mouseY)
-
-}
-
-
-function mousePressed() {
-  player.ships.forEach ( (ship) => {
-    if (
-      ship.x < mouseX &&
-      mouseX < ship.x + ship.length * SQUARESIZE &&
-      ship.y < mouseY &&
-      mouseY < ship.y + ship.length * SQUARESIZE
-    ) {
-      ship.isDragged = true;
-      print("mouse is pressed")
-
-    } else {
-          ship.isDragged = false;
-          print("mouse isn't pressed")
+  if (gameState ==0){ // modal game start
+    player.ships.forEach((ship) => {
+      if (
+        ship.x < mouseX &&
+        mouseX < ship.x + ship.length * SQUARESIZE &&
+        ship.y < mouseY &&
+        mouseY < ship.y + ship.length * SQUARESIZE
+      ) {
+        ship.x = mouseX;
+        ship.y = mouseY;
       }
-  })
+    });
+    console.log("x " + player.ships[0].x);
+    console.log("mouseX " + mouseX)
+    console.log("y " + player.ships[0].y);
+    console.log("mouseY " + mouseY)
+  } else if (gameState==1){ // place ships
+    player.ships.forEach ( (ship) => {
+      if (
+        ship.x < mouseX &&
+        mouseX < ship.x + ship.length * SQUARESIZE &&
+        ship.y < mouseY &&
+        mouseY < ship.y + ship.length * SQUARESIZE
+      ) {
+        ship.isDragged = true;
+        print("mouse is pressed")
+  
+      } else {
+            ship.isDragged = false;
+            print("mouse isn't pressed")
+        }
+    })
+  }
+  
+
 }
 
 function mouseDragged() {
