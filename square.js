@@ -16,5 +16,9 @@ function Square(x, y) {
         tint(255, 200);
         image(hit, this.x, this.y, SQUARESIZE, SQUARESIZE);
       }
+      if (this.hasShip) {
+        tint(0, 0, 255);
+        image(hit, this.x, this.y, SQUARESIZE, SQUARESIZE);
+      }
     };
   }

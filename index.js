@@ -7,7 +7,19 @@ let ships = [];
 let ship;
 let jets = []
 let jet;
+let gameState = 1; //0 = modal game start; 1 = place ships, 2 = start game, 3 = game over
 const SQUARESIZE = 50;
+
+const scoreEl = document.getElementById("score");
+const startGameBtn =document.getElementById("startGameBtn");
+const modalEl =document.getElementById("modalEl");
+const modalScoreEl = document.getElementById("modalScoreEl")
+
+startGameBtn.addEventListener("click", () => {
+  gameState = 1;
+  modalEl.style.display = "none"
+})
+
 
 function preload() {
   ships_vert = loadImage("assets/sprite sheet.png");
@@ -50,33 +62,39 @@ function setup() {
 }
 
 function draw() {
-  background(255);
-  ellipseMode(CENTER);
+  if (gameState == 0){
 
-  squares.forEach((square) => {
-    square.show();
-  })
+  } else if (gameState == 1){
+    background(255);
+    ellipseMode(CENTER);
+  
+    squares.forEach((square) => {
+      square.show();
+    })
+  
+    player.ships.forEach((ship) => {
+      ship.show();
+      player.lives += ship.length * ship.width; //add ship size to player lives
+    })
+  
+    enemy.ships.forEach((ship) => {
+      ship.show();
+    })
+  
+  
+    jets.forEach((jet, index) => {
+      if (jet.y <= 0) {
+        jets.splice(index, 1);
+      } else {
+        jet.move();
+      }
+    })
+  } else if (gameState ==2){
 
-  player.ships.forEach((ship) => {
-    ship.show();
-    player.lives += ship.length * ship.width; //add ship size to player lives
-  })
+  } else if (gameState ==3){
 
-  enemy.ships.forEach((ship) => {
-    ship.show();
-  })
-
-
-  jets.forEach((jet, index) => {
-    if (jet.y <= 0) {
-      jets.splice(index, 1);
-    } else {
-      jet.move();
-    }
-  })
-
-
-  // count player and enemy lives
+  }
+  
 
 
 }
@@ -188,8 +206,24 @@ function mouseReleased() {
         targetSquare = index;
       }
     })
-    ship.x = squares[targetSquare].x;
+    ship.x = squares[targetSquare].x;    
     ship.y = squares[targetSquare].y;
+    if (ship.rotate) {
+      for(i =0; i<ship.length; i++){
+        if (ship.width ==2){
+          squares[targetSquare+i + 1].hasShip = true;
+        }
+        squares[targetSquare+i].hasShip = true;
+      }
+    }else {
+      for(i =0; i<ship.length; i++){
+        if (ship.width ==2){
+          squares[targetSquare+i*10 + 1].hasShip = true;
+        }
+        squares[targetSquare+i*10].hasShip = true;
+      }
+    }
+
   })
 }
 
