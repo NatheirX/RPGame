@@ -68,49 +68,6 @@ function Player(num) {
   this.ships = [];
 }
 
-function Ship(x, y, length, width) {
-  this.length = length;
-  this.width = width;
-  this.isDragged = false;
-  this.x = x;
-  this.y = y;
-  this.rotate = false;
-  this.owner = null;
-  this.show = function () {
-    tint(255, 255);
-    if (width == 1 && length == 2 && !this.rotate) {
-      image(ships_vert, this.x, this.y, 50, 100, 0, 0, 50, 100);
-    }
-    if (width == 1 && length == 3 && !this.rotate) {
-      image(ships_vert, this.x, this.y, 50, 150, 100, 0, 50, 150);
-    }
-    if (width == 1 && length == 4 && !this.rotate) {
-      image(ships_vert, this.x, this.y, 50, 200, 150, 0, 50, 200);
-    }
-    if (width == 1 && length == 5 && !this.rotate) {
-      image(ships_vert, this.x, this.y, 50, 250, 200, 0, 50, 250);
-    }
-    if (width == 2 && length == 4 && !this.rotate) {
-      image(ships_vert, this.x, this.y, 336, 245, 250, 0);
-    }
-    //
-    if (width == 1 && length == 2 && this.rotate) {
-      image(ships_horz, this.x, this.y, 100, 50, 150, 0, 100, 50);
-    }
-    if (width == 1 && length == 3 && this.rotate) {
-      image(ships_horz, this.x, this.y, 150, 50, 100, 100, 150, 50);
-    }
-    if (width == 1 && length == 4 && this.rotate) {
-      image(ships_horz, this.x, this.y, 200, 50, 50, 150, 200, 50);
-    }
-    if (width == 1 && length == 5 && this.rotate) {
-      image(ships_horz, this.x, this.y, 250, 50, 0, 200, 250, 50);
-    }
-    if (width == 2 && length == 4 && this.rotate) {
-      image(ships_horz, this.x, this.y, 200, 100, 50, 250, 200, 100);
-    }
-  };
-}
 
 function drawgrid(x, y) {
   let width = x;
@@ -126,26 +83,7 @@ function drawgrid(x, y) {
   }
 }
 
-function Square(x, y) {
-  this.x = x;
-  this.y = y;
-  this.bombed = false;
-  this.hasShip = false;
-  this.show = function () {
-    square(x, y, SQUARESIZE);
-    stroke(0);
-    fill("#1DA237");
-    strokeWeight(4);
-    if (this.bombed && !this.hasShip) {
-      tint(255, 150);
-      image(crator, this.x, this.y, SQUARESIZE, SQUARESIZE);
-    }
-    if (this.hasShip && this.bombed) {
-      tint(255, 200);
-      image(hit, this.x, this.y, SQUARESIZE, SQUARESIZE);
-    }
-  };
-}
+
 
 function Jet(x, y) {
   this.x = x;
