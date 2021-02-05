@@ -53,24 +53,24 @@ function draw() {
   background(255);
   ellipseMode(CENTER);
 
-  squares.forEach( (square) => {
+  squares.forEach((square) => {
     square.show();
   })
-  
-  player.ships.forEach ((ship) => {
+
+  player.ships.forEach((ship) => {
     ship.show();
     player.lives += ship.length * ship.width; //add ship size to player lives
   })
 
-  enemy.ships.forEach ((ship) => {
+  enemy.ships.forEach((ship) => {
     ship.show();
   })
 
-  
-  jets.forEach( (jet, index) => {
-    if (jet.y <= 0){
+
+  jets.forEach((jet, index) => {
+    if (jet.y <= 0) {
       jets.splice(index, 1);
-    } else{
+    } else {
       jet.move();
     }
   })
@@ -113,7 +113,7 @@ function Jet(x, y) {
 }
 
 function mousePressed() {
-  squares.forEach ((square) => {
+  squares.forEach((square) => {
     if (
       square.x < mouseX &&
       mouseX < square.x + SQUARESIZE &&
@@ -127,7 +127,8 @@ function mousePressed() {
   })
 }
 
-function mouseDragged() {
+
+function mousePressed() {
   player.ships.forEach((ship) => {
     if (
       ship.x < mouseX &&
@@ -139,17 +140,78 @@ function mouseDragged() {
       ship.y = mouseY;
     }
   });
+  console.log("x " + player.ships[0].x);
+  console.log("mouseX " + mouseX)
+  console.log("y " + player.ships[0].y);
+  console.log("mouseY " + mouseY)
+
 }
+
+
+function mousePressed() {
+  player.ships.forEach ( (ship) => {
+    if (
+      ship.x < mouseX &&
+      mouseX < ship.x + ship.length * SQUARESIZE &&
+      ship.y < mouseY &&
+      mouseY < ship.y + ship.length * SQUARESIZE
+    ) {
+      ship.isDragged = true;
+      print("mouse is pressed")
+
+    } else {
+          ship.isDragged = false;
+          print("mouse isn't pressed")
+      }
+  })
+}
+
+function mouseDragged() {
+  player.ships.forEach ( (ship) => {
+    if (ship.isDragged){
+      ship.x = mouseX;
+      ship.y = mouseY;
+    }
+  })
+}
+
+function mouseReleased() {
+  player.ships.forEach( (ship) => {
+    ship.isDragged = false;
+    print("mouse released!");
+  })
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 function keyPressed() {
   if (keyCode === LEFT_ARROW) {
     player.ships.forEach((ship) => {
-      ship.rotate = true;
+      if (ship.x < mouseX && 
+        mouseX < ship.x + SQUARESIZE * ship.width && 
+        ship.y < mouseY && 
+        mouseY < ship.y + SQUARESIZE * ship.length) {
+        ship.rotate = false;
+      }
     })
   } else if (keyCode === RIGHT_ARROW) {
     player.ships.forEach((ship) => {
-      ship.rotate = false;
+      if (ship.x < mouseX && 
+        mouseX < ship.x + SQUARESIZE * ship.width && 
+        ship.y < mouseY && 
+        mouseY < ship.y + SQUARESIZE * ship.length) {
+        ship.rotate = true;
+      }
     })
   }
 }
