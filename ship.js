@@ -6,6 +6,7 @@ function Ship(x, y, length, width) {
     this.y = y;
     this.rotate = false;
     this.owner = null;
+    this.placed = false;
     this.show = function () {
       tint(255, 255);
       if (width == 1 && length == 2 && !this.rotate) {
