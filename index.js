@@ -5,6 +5,8 @@ let squares;
 let ships_vert, ships_horz, crator, plane, hit;
 let ships = [];
 let ship;
+let jets = []
+let jet;
 const SQUARESIZE = 50;
 
 function preload() {
@@ -50,23 +52,36 @@ function setup() {
 function draw() {
   background(255);
   ellipseMode(CENTER);
-  for (let i = 0; i < squares.length; i++) {
-    squares[i].show();
-  }
-  for (let i = 0; i < player.ships.length; i++) {
-    player.ships[i].show();
-  }
-  for (let i = 0; i < enemy.ships.length; i++) {
-    enemy.ships[i].show();
-  }
-  // jet.show();
-  // jet.move();
+
+  squares.forEach( (square) => {
+    square.show();
+  })
+  
+  player.ships.forEach ((ship) => {
+    ship.show();
+    player.lives += ship.length * ship.width; //add ship size to player lives
+  })
+
+  enemy.ships.forEach ((ship) => {
+    ship.show();
+  })
+
+  
+  jets.forEach( (jet, index) => {
+    if (jet.y <= 0){
+      jets.splice(index, 1);
+    } else{
+      jet.move();
+    }
+  })
+
+
+  // count player and enemy lives
+
+
 }
 
-function Player(num) {
-  this.num = num;
-  this.ships = [];
-}
+
 
 
 function drawgrid(x, y) {
@@ -92,21 +107,24 @@ function Jet(x, y) {
     image(plane, this.x, this.y, 55, 55, 65, 150, 50, 50);
   };
   this.move = function () {
+    jet.show();
     this.y -= 5;
   };
 }
 
 function mousePressed() {
-  for (let i = 0; i < squares.length; i++) {
+  squares.forEach ((square) => {
     if (
-      squares[i].x < mouseX &&
-      mouseX < squares[i].x + SQUARESIZE &&
-      squares[i].y < mouseY &&
-      mouseY < squares[i].y + SQUARESIZE
+      square.x < mouseX &&
+      mouseX < square.x + SQUARESIZE &&
+      square.y < mouseY &&
+      mouseY < square.y + SQUARESIZE
     ) {
-      squares[i].bombed = true;
+      square.bombed = true;
+      jet = new Jet(square.x, square.y)
+      jets.push(jet)
     }
-  }
+  })
 }
 
 function mouseDragged() {
@@ -121,4 +139,17 @@ function mouseDragged() {
       ship.y = mouseY;
     }
   });
+}
+
+
+function keyPressed() {
+  if (keyCode === LEFT_ARROW) {
+    player.ships.forEach((ship) => {
+      ship.rotate = true;
+    })
+  } else if (keyCode === RIGHT_ARROW) {
+    player.ships.forEach((ship) => {
+      ship.rotate = false;
+    })
+  }
 }
