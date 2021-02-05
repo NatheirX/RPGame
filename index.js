@@ -179,6 +179,17 @@ function mouseReleased() {
   player.ships.forEach( (ship) => {
     ship.isDragged = false;
     print("mouse released!");
+    let leastDistance = Infinity;
+    let targetSquare;
+    squares.forEach( (square, index) => {
+      const dist = Math.hypot(ship.x - square.x, ship.y - square.y)
+      if (dist < leastDistance){
+        leastDistance = dist;
+        targetSquare = index;
+      }
+    })
+    ship.x = squares[targetSquare].x;
+    ship.y = squares[targetSquare].y;
   })
 }
 
