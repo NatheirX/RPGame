@@ -1,7 +1,7 @@
 function Ship(x, y, length, width) {
     this.length = length;
     this.width = width;
-    this.isDragged = false;
+    this.selected = false;
     this.x = x;
     this.y = y;
     this.rotate = function () {
@@ -12,7 +12,7 @@ function Ship(x, y, length, width) {
     this.placed = false;
     this.show = function () {
       tint(255, 255);
-      if (this.isDragged){
+      if (!this.selected){
         if (width == 1 && length == 2) {
           image(ships_vert, this.x, this.y, 50, 100, 0, 0, 50, 100);
         }
