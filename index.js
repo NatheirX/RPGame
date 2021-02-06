@@ -1,7 +1,7 @@
 let player;
 let width = window.innerWidth - 10;
 let height = window.innerHeight - 25;
-let ships_vert, ships_horz, crator, plane, hit;
+let ships_vert, ships_horz, ships_vert_outline, ships_horz_outline, crator, plane, hit;
 let ships = [];
 let ship;
 let jets = [];
@@ -12,6 +12,8 @@ const SQUARESIZE = 50;
 function preload() {
   ships_vert = loadImage("assets/sprite sheet.png");
   ships_horz = loadImage("assets/sprite sheet2.png");
+  ships_vert_outline = loadImage("assets/sprite sheet - outline.png");
+  ships_horz_outline = loadImage("assets/sprite sheet2 - outline.png");
   crator = loadImage("assets/crator.png");
   plane = loadImage("assets/battleship.png");
   hit = loadImage("assets/hit.png");
@@ -49,6 +51,7 @@ function setup() {
 }
 
 function draw() {
+  console.log(gameState)
   background(255);
   // console.log(gameState);
   if (gameState == 0) {
@@ -98,7 +101,7 @@ function Jet(x, y) {
 }
 
 function keyPressed() {
-  if (keyCode === LEFT_ARROW) {
+  if (keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW) {
     player.ships.forEach((ship) => {
       if (
         ship.x < mouseX &&
@@ -106,18 +109,7 @@ function keyPressed() {
         ship.y < mouseY &&
         mouseY < ship.y + SQUARESIZE * ship.length
       ) {
-        ship.rotate = false;
-      }
-    });
-  } else if (keyCode === RIGHT_ARROW) {
-    player.ships.forEach((ship) => {
-      if (
-        ship.x < mouseX &&
-        mouseX < ship.x + SQUARESIZE * ship.width &&
-        ship.y < mouseY &&
-        mouseY < ship.y + SQUARESIZE * ship.length
-      ) {
-        ship.rotate = true;
+        ship.rotate();
       }
     });
   }
