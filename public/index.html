@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>RPGame</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/p5@1.2.0/lib/p5.min.js"></script>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+
+<body>
+    <div class="fixed text-white text-sm ml-2 mt-1 select-none" id="score">
+        <span>Lives: </span><span>0</span>
+    </div>
+    
+    <div class="fixed inset-0 flex items-center justify-center" id="modalEl"> 
+        <div class="bg-white max-w-md w-full p-6 text-center">
+            <h1 class="text-4xl font-bold leading-none" id="modalScoreEl">0</h1>
+            <p class="text-sm text-gray-700">Points</p>
+            <div>
+                <button class="bg-blue-500 text-white py-3 rounded-full w-full" id="startGameBtn">Start Game</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed inset-0 flex items-center justify-center" id="findOpponent"> 
+        <div class="bg-white max-w-md w-full p-6 text-center">
+            <div>
+                <button class="bg-blue-500 text-white py-3 rounded-full w-full" id="findOpponentBtn">Find Opponent</button>
+            </div>
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="index.js"></script>
+    <script type="text/javascript" src="square.js"></script>
+    <script type="text/javascript" src="ship.js"></script>
+    <script type="text/javascript" src="jet.js"></script>
+    <script type="text/javascript" src="player.js"></script>
+    <script type="text/javascript" src="buttons.js"></script>
+    <script type="text/javascript" src="mouseevents.js"></script>
+    <script type="text/javascript" src="server/server.js"></script>
+</body>
+
+</html>
